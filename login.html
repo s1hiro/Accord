@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Linking our CSS -->
+    <link rel="stylesheet" href="login.css" />
+
+    <!-- Linking Firebase version 8 CDNs -->
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <!-- Initializing Firebase -->
+    <script defer src="init-firebase.js"></script>
+
+    <!-- Link our main.js AFTER we load initialize Firebase -->
+    <script defer src="script.js"></script>
+
+    <title>Chat App</title>
+</head>
+
+<body>
+    <div id="topDiv">
+        <button onclick="window.location.href='index.html'">Back</button>
+    </div>
+    <div id="centerer">
+        <div class="login-container">
+            <h1>Welcome to Chat App</h1>
+            <form class="login-form">
+                <label id="username" for="username">Username</label>
+                <input type="text" id="usernameInp" placeholder="Enter your username" required />
+
+                <label id="password" for="password">Password</label>
+                <input type="password" id="passwordInp" placeholder="Enter your password" required />
+
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

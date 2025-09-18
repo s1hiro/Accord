@@ -1,0 +1,63 @@
+{
+    "users": {
+        "johnDoe": {
+            "password": "anon",
+            "friends": [
+                "janeDoe",
+                "shafanRahman"
+            ],
+            "groupchats": [
+                "0",
+                "1",
+                "2"
+            ],
+            "datejoined": {
+                "month": "september",
+                "day": "9",
+                "year": "2025"
+            },
+            "description": "lorem ipsum",
+            "profilePicture": "link"
+        }
+    },
+    "dms": {
+        "users": [
+            "user1",
+            "user2"
+        ],
+        "messages": {
+            "normList": {
+                "content": "",
+                "username": "users[x]",
+                "timestamp": ""
+            },
+            "pinnedList": {
+                "content": "",
+                "username": "users[x]",
+                "timestamp": ""
+            }
+        }
+    },
+    "groupchats": {
+        "GCName": {
+            "users": {
+                "name1": "owner",
+                "name2": "member"
+            },
+            "GCName": "",
+            "GCImage": "",
+            "messages": {
+                "normList": {
+                    "content": "",
+                    "username": "users[x]",
+                    "timestamp": ""
+                },
+                "pinnedList": {
+                    "content": "",
+                    "username": "users[x]",
+                    "timestamp": ""
+                }
+            }
+        }
+    }
+}

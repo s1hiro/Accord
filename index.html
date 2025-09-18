@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- @NOTE linking our CSS -->
+    <link rel="stylesheet" href="landingpage.css" />
+
+    <!-- @NOTE linking firebase version 8 CDNs first -->
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+    <!-- @NOTE initializing firebase -->
+    <script defer type="module" src="init-firebase.js"></script>
+
+    <!-- @NOTE link our main.js AFTER we load initialize firebase -->
+    <script defer src="script.js"></script>
+    <title>Chat App</title>
+</head>
+
+<body>
+    <div id="welcomeText">
+        <h1>Welcome to the Chat App for Knowledge House!</h1>
+        <p>
+            This a simple chat app made so you can contact anyone you know that is also a part of Knowledge House.
+        </p>
+    </div>
+
+    <div id="landingButtons">
+        <button id="loginButton">
+            Login
+        </button>
+        <button id="signupButton">
+            Sign Up
+        </button>
+    </div>
+    <script type="module" src="landingpage.js"></script>
+</body>
