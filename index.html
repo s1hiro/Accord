@@ -7,6 +7,7 @@
 
     <!-- @NOTE linking our CSS -->
     <link rel="stylesheet" href="landingpage.css" />
+    <link rel="stylesheet" href="global.css" />
 
     <!-- @NOTE linking firebase version 8 CDNs first -->
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -21,20 +22,22 @@
 </head>
 
 <body>
-    <div id="welcomeText">
-        <h1>Welcome to the Chat App for Knowledge House!</h1>
-        <p>
-            This a simple chat app made so you can contact anyone you know that is also a part of Knowledge House.
-        </p>
-    </div>
+    <div id="centerer">
+        <div id="welcomeText">
+            <h1>Welcome to the Chat App for Knowledge House!</h1>
+            <p>
+                This a simple chat app made so you can contact anyone you know that is also a part of Knowledge House.
+            </p>
+        </div>
 
-    <div id="landingButtons">
-        <button id="loginButton">
-            Login
-        </button>
-        <button id="signupButton">
-            Sign Up
-        </button>
+        <div id="landingButtons">
+            <button id="loginButton">
+                Login
+            </button>
+            <button id="signupButton">
+                Sign Up
+            </button>
+        </div>
     </div>
     <script type="module" src="landingpage.js"></script>
 </body>

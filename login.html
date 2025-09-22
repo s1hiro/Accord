@@ -7,16 +7,11 @@
 
     <!-- Linking our CSS -->
     <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" href="global.css" />
 
-    <!-- Linking Firebase version 8 CDNs -->
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
-    <!-- Initializing Firebase -->
     <script defer src="init-firebase.js"></script>
-
-    <!-- Link our main.js AFTER we load initialize Firebase -->
-    <script defer src="script.js"></script>
 
     <title>Chat App</title>
 </head>
@@ -35,10 +30,12 @@
                 <label id="password" for="password">Password</label>
                 <input type="password" id="passwordInp" placeholder="Enter your password" required />
 
-                <button type="submit">Login</button>
+                <button id="login" type="submit">Login</button>
             </form>
         </div>
     </div>
+
+    <script type="module" src="login.js"></script>
 </body>
 
 </html>
