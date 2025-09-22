@@ -19,67 +19,130 @@
 
   <!-- @NOTE link our main.js AFTER we load initialize firebase -->
   <script defer type="module" src="mainscreen.js"></script>
-  <title>Fire Chat</title>
+  <title>Accord</title>
 </head>
 
 <body>
-  <div id="topDiv">
-    <button onclick="window.location.href='index.html'">Back</button>
-  </div>
-  <h1 id="title">Fire Chat</h1>
-  <div id="chatbox-container">
-    <!-- @NOTE this is where we'll append messages -->
-    <div id="all-messages">
+  <div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="server-header">
+        <h2>Accord</h2>
+        <button class="back-btn" onclick="window.location.href='index.html'">
+          <span>←</span>
+        </button>
+      </div>
+      
+      <!-- Channels Section -->
+      <div class="channels-section">
+        <div class="section-header">
+          <span class="section-title">TEXT CHANNELS</span>
+        </div>
+        <div class="channel-list">
+          <div class="channel-item active">
+            <span class="channel-icon">#</span>
+            <span class="channel-name">general</span>
+          </div>
+          <div class="channel-item">
+            <span class="channel-icon">#</span>
+            <span class="channel-name">random</span>
+          </div>
+          <div class="channel-item">
+            <span class="channel-icon">#</span>
+            <span class="channel-name">help</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Online Users Section -->
+      <div class="users-section">
+        <div class="section-header">
+          <span class="section-title">ONLINE — 3</span>
+        </div>
+        <div class="user-list">
+          <div class="user-item">
+            <div class="user-avatar">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User">
+              <div class="status-indicator online"></div>
+            </div>
+            <span class="username">User123</span>
+          </div>
+          <div class="user-item">
+            <div class="user-avatar">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User">
+              <div class="status-indicator online"></div>
+            </div>
+            <span class="username">ChatMaster</span>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="typing-container">
-      <form id="msg-form">
-        <!-- @NOTE this input has an id #username -->
-        <div class="input-container">
-          <label>Username:</label>
-          <input type="text" id="username" />
+    <!-- Main Chat Area -->
+    <div class="main-content">
+      <!-- Chat Header -->
+      <div class="chat-header">
+        <div class="channel-info">
+          <span class="channel-icon">#</span>
+          <span class="channel-name">general</span>
+          <span class="channel-description">General discussion</span>
         </div>
-
-        <!-- @NOTE this input has an id #email -->
-        <div class="input-container">
-          <label>Email:</label>
-          <input type="text" id="email" />
+        <div class="header-controls">
+          <button class="header-btn">📌</button>
+          <button class="header-btn">👥</button>
+          <button class="header-btn">🔍</button>
         </div>
+      </div>
 
-        <!-- @NOTE this input has an id #profile -->
-         <div class="input-container">
-           <label>Profile:</label>
-           <img id="preview-image" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
-           <input
-             type="text"
-             id="profile"
-             placeholder="Enter Image URL" value="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
-             
-           <script>
-             let imagePreview = document.getElementById('preview-image');
-             let imageInput = document.getElementById('profile');
-
-
-             imageInput.oninput = function () {
-               if (imageInput.value !== '') {
-                 imagePreview.src = imageInput.value;
-               } else {
-                 imagePreview.src = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
-               }
-             };
-           </script>
-         </div>
-
-        <!-- @NOTE this input has an id #message -->
-        <div class="input-container">
-          <label>Message:</label>
-          <input type="text" id="message" />
+      <!-- Messages Area -->
+      <div class="messages-container">
+        <div id="all-messages">
+          <!-- Messages will be dynamically added here -->
         </div>
-      </form>
+      </div>
 
-      <button onclick="addMessageToBoard(document.getElementById('msg-form'))" id="send-btn">Send</button>
+      <!-- Message Input Area -->
+      <div class="message-input-area">
+        <div class="user-info-bar">
+          <div class="current-user">
+            <img id="current-user-avatar" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="Your Avatar">
+            <div class="user-details">
+              <input type="text" id="username" placeholder="Enter username" />
+              <input type="text" id="email" placeholder="Enter email" />
+            </div>
+          </div>
+          <div class="avatar-section">
+            <label>Profile Image:</label>
+            <input type="text" id="profile" placeholder="Enter Image URL" 
+                   value="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
+          </div>
+        </div>
+        
+        <form id="msg-form">
+          <div class="message-input-container">
+            <input type="text" id="message" placeholder="Message #general" />
+            <button type="button" onclick="addMessageToBoard(document.getElementById('msg-form'))" id="send-btn">
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
+
+  <script>
+    // Profile image preview functionality
+    let currentUserAvatar = document.getElementById('current-user-avatar');
+    let imageInput = document.getElementById('profile');
+
+    imageInput.oninput = function () {
+      if (imageInput.value !== '') {
+        currentUserAvatar.src = imageInput.value;
+      } else {
+        currentUserAvatar.src = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+      }
+    };
+  </script>
 </body>
 
 </html>
