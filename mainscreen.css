@@ -40,6 +40,13 @@ body {
   display: flex;
   flex-direction: column;
   border-right: 1px solid var(--border);
+  height: 100vh;        /* full height */
+  overflow: hidden;     /* stop bar from spilling */
+}
+
+.sidebar-content {
+  flex: 1;              /* fills the gap */
+  overflow-y: auto;     /* scrolls if needed */
 }
 
 .server-header {
@@ -442,4 +449,53 @@ body {
     width: 100%;
     align-items: center;
   }
+}
+
+/* User Bar (bottom of sidebar) */
+.user-bar {
+  margin-top: auto; /* pushes it to the bottom */
+  padding: 12px;
+  background-color: var(--bg-tertiary);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-bar-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-bar-username {
+  font-size: 14px;
+  color: var(--text-primary);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 120px; /* adjust width if needed */
+}
+
+.settings-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.settings-btn:hover {
+  background-color: var(--hover);
+  color: var(--text-primary);
 }

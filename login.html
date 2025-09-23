@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Linking our CSS -->
-    <link rel="stylesheet" href="login.css" />
-    <link rel="stylesheet" href="global.css" />
+    <link rel="stylesheet" href="login.css"/>
+    <link rel="stylesheet" href="global.css"/>
+    <link rel="icon" href="accord.png" type="image/x-icon">
 
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -22,13 +23,13 @@
     </div>
     <div id="centerer">
         <div class="login-container">
-            <h1>Welcome to Chat App</h1>
+            <h1>Welcome back to Accord</h1>
             <form class="login-form">
                 <label id="username" for="username">Username</label>
-                <input type="text" id="usernameInp" placeholder="Enter your username" required />
+                <input type="text" id="usernameInp" autocomplete="off" placeholder="Enter your username" required />
 
                 <label id="password" for="password">Password</label>
-                <input type="password" id="passwordInp" placeholder="Enter your password" required />
+                <input type="password" id="passwordInp" autocomplete="off" placeholder="Enter your password" required />
 
                 <button id="login" type="submit">Login</button>
             </form>

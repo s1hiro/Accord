@@ -9,6 +9,7 @@
   <!-- @NOTE linking our CSS -->
   <link rel="stylesheet" href="mainscreen.css" />
   <link rel="stylesheet" href="global.css" />
+  <link rel="icon" href="accord.png" type="image/x-icon">
 
   <!-- @NOTE linking firebase version 8 CDNs first -->
   <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -29,12 +30,13 @@
       <div class="server-header">
         <h2>Accord</h2>
         <button class="back-btn" onclick="window.location.href='index.html'">
-          <span>←</span>
+          <span>← Logout</span>
         </button>
       </div>
-      
+
+
       <!-- Channels Section -->
-      <div class="channels-section">
+      <!-- <div class="channels-section">
         <div class="section-header">
           <span class="section-title">TEXT CHANNELS</span>
         </div>
@@ -52,7 +54,7 @@
             <span class="channel-name">help</span>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Online Users Section -->
       <div class="users-section">
@@ -76,6 +78,24 @@
           </div>
         </div>
       </div>
+
+      <div class="user-bar">
+        <div class="user-bar-left">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User Avatar"
+            class="user-bar-avatar">
+          <span class="user-bar-username">PlaceholderUser</span>
+        </div>
+        <button class="settings-btn" onclick="window.location.href='settings.html'">
+          <!-- Gear/Settings SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
+            height="20">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M11.983 4.083a1 1 0 011.034 0l1.618.94a1 1 0 00.948 0l1.618-.94a1 1 0 011.034 0l1.618.94a1 1 0 00.948 0l1.618-.94a1 1 0 011.034 0l.618.36a1 1 0 010 1.732l-1.618.94a1 1 0 00-.948 0l-1.618.94a1 1 0 01-1.034 0l-1.618-.94a1 1 0 00-.948 0l-1.618.94a1 1 0 01-1.034 0l-1.618-.94a1 1 0 00-.948 0l-1.618.94a1 1 0 01-1.034 0l-.618-.36a1 1 0 010-1.732l1.618-.94a1 1 0 00.948 0l1.618-.94z" />
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+          </svg>
+        </button>
+      </div>
+
     </div>
 
     <!-- Main Chat Area -->
@@ -105,22 +125,23 @@
       <div class="message-input-area">
         <div class="user-info-bar">
           <div class="current-user">
-            <img id="current-user-avatar" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="Your Avatar">
+            <img id="current-user-avatar"
+              src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="Your Avatar">
             <div class="user-details">
-              <input type="text" id="username" placeholder="Enter username" />
-              <input type="text" id="email" placeholder="Enter email" />
+              <input type="text" id="username" autocomplete="off" placeholder="Enter username" />
+              <input type="text" id="email" autocomplete="off" placeholder="Enter email" />
             </div>
           </div>
           <div class="avatar-section">
             <label>Profile Image:</label>
-            <input type="text" id="profile" placeholder="Enter Image URL" 
-                   value="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png"/>
+            <input type="text" id="profile" autocomplete="off" placeholder="Enter Image URL"
+              value="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
           </div>
         </div>
-        
+
         <form id="msg-form">
           <div class="message-input-container">
-            <input type="text" id="message" placeholder="Message #general" />
+            <input type="text" id="message" autocomplete="off" placeholder="Message #general" />
             <button type="button" onclick="addMessageToBoard(document.getElementById('msg-form'))" id="send-btn">
               Send
             </button>
