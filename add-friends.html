@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Add Friends</title>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script defer src="init-firebase.js"></script>
+    <link rel="stylesheet" href="add-friends.css"/>
+    <link rel="icon" href="accord.png" type="image/x-icon">
+</head>
+
+<body>
+    <div id="topDiv">
+        <button id="backBtn">Back</button>
+    </div>
+    <div class="centerer">
+        <div class="container">
+            <h1>Do you know anyone?</h1>
+            <h2>Add them!</h2>
+            <div class="search-container">
+                <input type="text" id="searchInput" autocomplete="off" class="search-bar"
+                    placeholder="Search usernames..." />
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+    </div>
+    <script type="module" src="add-friends.js"></script>
+</body>
+
+</html>

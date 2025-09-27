@@ -34,6 +34,20 @@
         </button>
       </div>
 
+      <!-- Add Friends Button -->
+      <div class="add-friends-button-container">
+        <button id="add-friends-btn" aria-label="Add Friends" height="60px">
+          <svg width="35px" height="35px" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" stroke-width="3"
+            stroke="#ffffff" fill="none">
+            <circle cx="29.22" cy="16.28" r="11.14" />
+            <path d="M41.32,35.69c-2.69-1.95-8.34-3.25-12.1-3.25h0A22.55,22.55,0,0,0,6.67,55h29.9" />
+            <circle cx="45.38" cy="46.92" r="11.94" />
+            <line x1="45.98" y1="39.8" x2="45.98" y2="53.8" />
+            <line x1="38.98" y1="46.8" x2="52.98" y2="46.8" />
+          </svg> 
+          Add Friends!
+        </button>
+      </div>
 
       <!-- Channels Section -->
       <!-- <div class="channels-section">
@@ -87,11 +101,10 @@
         </div>
         <button class="settings-btn" onclick="window.location.href='settings.html'">
           <!-- Gear/Settings SVG -->
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="20"
-            height="20">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M11.983 4.083a1 1 0 011.034 0l1.618.94a1 1 0 00.948 0l1.618-.94a1 1 0 011.034 0l1.618.94a1 1 0 00.948 0l1.618-.94a1 1 0 011.034 0l.618.36a1 1 0 010 1.732l-1.618.94a1 1 0 00-.948 0l-1.618.94a1 1 0 01-1.034 0l-1.618-.94a1 1 0 00-.948 0l-1.618.94a1 1 0 01-1.034 0l-1.618-.94a1 1 0 00-.948 0l-1.618.94a1 1 0 01-1.034 0l-.618-.36a1 1 0 010-1.732l1.618-.94a1 1 0 00.948 0l1.618-.94z" />
-            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" />
+          <svg fill="#4f545c" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+            data-name="Layer 1">
+            <path
+              d="M19.9,12.66a1,1,0,0,1,0-1.32L21.18,9.9a1,1,0,0,0,.12-1.17l-2-3.46a1,1,0,0,0-1.07-.48l-1.88.38a1,1,0,0,1-1.15-.66l-.61-1.83A1,1,0,0,0,13.64,2h-4a1,1,0,0,0-1,.68L8.08,4.51a1,1,0,0,1-1.15.66L5,4.79A1,1,0,0,0,4,5.27L2,8.73A1,1,0,0,0,2.1,9.9l1.27,1.44a1,1,0,0,1,0,1.32L2.1,14.1A1,1,0,0,0,2,15.27l2,3.46a1,1,0,0,0,1.07.48l1.88-.38a1,1,0,0,1,1.15.66l.61,1.83a1,1,0,0,0,1,.68h4a1,1,0,0,0,.95-.68l.61-1.83a1,1,0,0,1,1.15-.66l1.88.38a1,1,0,0,0,1.07-.48l2-3.46a1,1,0,0,0-.12-1.17ZM18.41,14l.8.9-1.28,2.22-1.18-.24a3,3,0,0,0-3.45,2L12.92,20H10.36L10,18.86a3,3,0,0,0-3.45-2l-1.18.24L4.07,14.89l.8-.9a3,3,0,0,0,0-4l-.8-.9L5.35,6.89l1.18.24a3,3,0,0,0,3.45-2L10.36,4h2.56l.38,1.14a3,3,0,0,0,3.45,2l1.18-.24,1.28,2.22-.8.9A3,3,0,0,0,18.41,14ZM11.64,8a4,4,0,1,0,4,4A4,4,0,0,0,11.64,8Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,11.64,14Z" />
           </svg>
         </button>
       </div>
@@ -102,10 +115,18 @@
     <div class="main-content">
       <!-- Chat Header -->
       <div class="chat-header">
+        <button id="sidebar-toggle" class="sidebar-toggle-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <line x1="9" y1="3" x2="9" y2="21" />
+            <path d="M17 16l-4-4 4-4" />
+          </svg>
+        </button>
         <div class="channel-info">
-          <span class="channel-icon">#</span>
-          <span class="channel-name">general</span>
-          <span class="channel-description">General discussion</span>
+          <span class="channel-icon">@</span>
+          <span class="channel-name">johnDoe</span>
+          <span class="channel-description">Direct Messages</span>
         </div>
         <div class="header-controls">
           <button class="header-btn">📌</button>
@@ -123,25 +144,9 @@
 
       <!-- Message Input Area -->
       <div class="message-input-area">
-        <div class="user-info-bar">
-          <div class="current-user">
-            <img id="current-user-avatar"
-              src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="Your Avatar">
-            <div class="user-details">
-              <input type="text" id="username" autocomplete="off" placeholder="Enter username" />
-              <input type="text" id="email" autocomplete="off" placeholder="Enter email" />
-            </div>
-          </div>
-          <div class="avatar-section">
-            <label>Profile Image:</label>
-            <input type="text" id="profile" autocomplete="off" placeholder="Enter Image URL"
-              value="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" />
-          </div>
-        </div>
-
         <form id="msg-form">
           <div class="message-input-container">
-            <input type="text" id="message" autocomplete="off" placeholder="Message #general" />
+            <input type="text" id="message" autocomplete="off" placeholder="Message johnDoe" />
             <button type="button" onclick="addMessageToBoard(document.getElementById('msg-form'))" id="send-btn">
               Send
             </button>
@@ -150,20 +155,6 @@
       </div>
     </div>
   </div>
-
-  <script>
-    // Profile image preview functionality
-    let currentUserAvatar = document.getElementById('current-user-avatar');
-    let imageInput = document.getElementById('profile');
-
-    imageInput.oninput = function () {
-      if (imageInput.value !== '') {
-        currentUserAvatar.src = imageInput.value;
-      } else {
-        currentUserAvatar.src = 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
-      }
-    };
-  </script>
 </body>
 
 </html>

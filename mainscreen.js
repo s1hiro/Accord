@@ -1,32 +1,39 @@
-// const database = firebase.database().ref();
-/**
- * @TODO get const references to the following elements:
- *      - div with id #all-messages
- *      - input with id #username
- *      - input with id #message
- *      - button with id #send-btn and the updateDB
- *        function as an onclick event handler
- */
-
-// const allMessages = document.querySelector('#all-messages');
-// const usernameElem = document.getElementById('username');
-// const messageElem = document.getElementById('message');
-// const emailElem = document.getElementById('email')
-// const sendBtn = document.getElementById('send-btn');
-// const imgElem = document.getElementById('profile')
-
-/**
- * @TODO create a function called updateDB which takes
- * one parameter, the event, that:
- *      - gets the values of the input elements and stores
- *        the data in a temporary object with the keys USERNAME
- *        and MESSAGE
- *      - console.logs the object above
- *      - writes this object to the database
- *      - resets the value of #message input element
- */
-
+const database = firebase.database().ref(); 
+const userFriends = firebase.database().ref(`users/${localStorage.getItem('username')}/friends`);
+const dbDms = firebase.database().ref('dms');
+const userDms = [];
+userFriends.once('value').then(snapshot => {
+  const friendsList = snapshot.val(); // This gets the friends data once loaded
+  if (friendsList) {
+    for (const friend in friendsList) {
+      userDms.push(friend);
+    }
+    // Now userDms contains the actual list of user's friends
+    console.log('User friends loaded:', userDms);
+  }
+});
+const allMessages = document.querySelector('#all-messages');
+const sendBtn = document.getElementById('send-btn');
 sendBtn.onclick = updateDB
+
+// sidebar toggler
+document.addEventListener('DOMContentLoaded', function () {
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebar = document.querySelector('.sidebar');
+
+  sidebarToggle.addEventListener('click', function () {
+    const isCollapsed = sidebar.classList.toggle('collapsed');
+
+    // Change the SVG path based on collapsed state
+    const svg = this.querySelector('svg');
+    const path = svg.querySelector('path');
+    if (isCollapsed) {
+      path.setAttribute('d', 'M13 8l4 4-4 4');
+    } else {
+      path.setAttribute('d', 'M17 16l-4-4 4-4');
+    }
+  });
+});
 
 function updateDB(event) {
 
@@ -34,81 +41,27 @@ function updateDB(event) {
 
   let timedata = new Date();
 
-  let data;
-
-  if (imgElem.value != "") {
-    data = {
-      USERNAME: usernameElem.value,
-      EMAIL: emailElem.value,
-      MESSAGE: messageElem.value,
-      DATE: `${timedata.getMonth() + 1}/${timedata.getDate()}/${timedata.getFullYear()}`,
-      TIME: `${timedata.getHours()}:${timedata.getMinutes()}:${timedata.getSeconds()}`,
-      IMG: imgElem.value
-    };
-  } else {
-    data = {
-      USERNAME: usernameElem.value,
-      EMAIL: emailElem.value,
-      MESSAGE: messageElem.value,
-      DATE: `${timedata.getMonth() + 1}/${timedata.getDate()}/${timedata.getFullYear()}`,
-      TIME: `${timedata.getHours()}:${timedata.getMinutes()}:${timedata.getSeconds()}`,
-      IMG: 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'
-    };
+  let data = {
+    USERNAME: usernameElem.value,
+    MESSAGE: messageElem.value,
+    DATE: `${timedata.getMonth() + 1}/${timedata.getDate()}/${timedata.getFullYear()}`,
+    TIME: `${timedata.getHours()}:${timedata.getMinutes()}}`,
   }
 
-  database.push(data)
+  userDms.push(data)
   messageElem.value = "";
 }
 
-/**
- * @TODO add the addMessageToBoard function as an event
- * handler for the "child_added" event on the database
- * object
- */
 
-database.on('child_added', addMessageToBoard)
-
-/**
- * @TODO create a function called addMessageToBoard that
- * takes one parameter rowData which:
- *      - console.logs the data within rowData
- *      - creates a new HTML element for a single message
- *        containing the appropriate data
- *      - appends this HTML to the div with id
- *        #all-messages (we should have a reference already!)
- *
- */
+//userDms.on('child_added', addMessageToBoard) 
 
 function addMessageToBoard(rowData) {
-  // Store the value of rowData inside object named 'data'
-  // console.log data
-  // Create a variable named singleMessage
-  // that stores function call for makeSingleMessageHTML()
-  // Append the new message HTML element to allMessages
   const data = rowData.val()
-  let singleMessage = makeSingleMessageHTML(data.USERNAME, data.EMAIL, data.MESSAGE, data.DATE, data.TIME, data.IMG);
+  let singleMessage = makeSingleMessageHTML(data.USERNAME, data.MESSAGE, data.DATE, data.TIME);
   allMessages.append(singleMessage)
 }
 
-/**
- * @TODO create a function called makeSingleMessageHTML which takes
- * two parameters, usernameTxt and messageTxt, that:
- *      - creates a parent div with the class .single-message
- *
- *      - creates a p tag with the class .single-message-username
- *      - update the innerHTML of this p to be the username
- *        provided in the parameter object
- *      - appends this p tag to the parent div
- *
- *      - creates a p tag
- *      - updates the innerHTML of this p to be the message
- *        text provided in the parameter object
- *      - appends this p tag to the parent div
- *
- *      - returns the parent div
- */
-
-function makeSingleMessageHTML(usernameTxt, emailTxt, messageTxt, dateTxt, timeTxt, imgSrc) {
+function makeSingleMessageHTML(usernameTxt, messageTxt, dateTxt, timeTxt) {
   let parentDiv = document.createElement("div")
   parentDiv.className = 'single-message'
 
@@ -121,11 +74,6 @@ function makeSingleMessageHTML(usernameTxt, emailTxt, messageTxt, dateTxt, timeT
   usernameP.className = 'single-message-username';
   usernameP.innerHTML = usernameTxt + ':';
   parentDiv.append(usernameP);
-
-  let emailP = document.createElement('p');
-  emailP.className = "single-message-email";
-  emailP.innerHTML = emailTxt;
-  parentDiv.append(emailP);
 
   let messageP = document.createElement("p");
   messageP.innerHTML = messageTxt;
@@ -144,3 +92,11 @@ function makeSingleMessageHTML(usernameTxt, emailTxt, messageTxt, dateTxt, timeT
 
   return parentDiv;
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const addFriendsBtn = document.getElementById('add-friends-btn');
+  addFriendsBtn.addEventListener('click', () => {
+    localStorage.setItem('lastPage', 'mainscreen.html');
+    window.location.href = 'add-friends.html';
+  });
+});

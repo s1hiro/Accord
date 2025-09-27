@@ -11,10 +11,12 @@ function getObjectFromDB(usr, pswd) {
     objectRef.once("value").then((snapshot) => {
         if (snapshot.exists()) {
             const userData = snapshot.val();
-
+            localStorage.setItem('username', userData.username);
+            localStorage.setItem('loginStatus', 'false');
             // Check if the password from the input matches the password in the database
             if (userData.password === pswd) {
                 console.log("Login successful! Welcome,", userData.username);
+                localStorage.setItem("loginStatus", "true");
                 window.location.href = "mainscreen.html";
             } else {
                 alert("Incorrect password. Please try again.");

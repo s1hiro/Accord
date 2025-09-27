@@ -3,6 +3,7 @@ let password = document.getElementById("passwordInp");
 let signupbutton = document.getElementById("submitBtn");
 const database = firebase.database().ref()
 const usersRef = database.child("users");
+const dmsRef = database.child("dms");
 let users = null;
 
 usersRef.get().then((snapshot) => {
@@ -64,8 +65,8 @@ signupbutton.onclick = function (event) {
                 day: timedata.getDate(),
                 year: timedata.getFullYear()
             },
-            description: "",
-            profilePicture: ""
+            description: "Hello my name is " + username.value + "!",
+            profilePicture: "https://i.pinimg.com/originals/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg?nii=t"
         });
     }
 

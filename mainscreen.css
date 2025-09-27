@@ -208,7 +208,7 @@ body {
 }
 
 .header-btn {
-  background: none;
+  background-color: var(--bg-accent);
   border: none;
   padding: 4px;
   cursor: pointer;
@@ -498,4 +498,116 @@ body {
 .settings-btn:hover {
   background-color: var(--hover);
   color: var(--text-primary);
+}
+
+.sidebar-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+  flex-shrink: 0;
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: var(--hover);
+  color: var(--text-primary);
+}
+
+/* Sidebar transitions */
+.sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  transition: width 0.3s ease;
+}
+
+.sidebar.collapsed {
+  width: 0;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Main content adjustments */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.collapsed + .main-content {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* Chat header layout */
+.chat-header {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.channel-info {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.header-controls {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Ensure text doesn't overflow */
+.channel-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.channel-description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+}
+
+.add-friends-button-container {
+  width: 90%;
+  margin: 8px auto 16px auto;
+  background-color: var(--accent-blue);
+  border-radius: 8px;
+  padding: 6px;
+  display: flex;
+  justify-content: center;
+}
+
+#add-friends-btn {
+  color: var(--text-primary);
+  font-size: 25px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#add-friends-btn svg {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+button svg {
+  margin-right: 8px; /* Adjust px as needed */
+  vertical-align: middle; /* optional, to align with text */
 }

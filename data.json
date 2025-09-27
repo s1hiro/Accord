@@ -21,31 +21,8 @@
         }
     },
     "dms": {
-        "users": [
-            "user1",
-            "user2"
-        ],
-        "messages": {
-            "normList": {
-                "content": "",
-                "username": "users[x]",
-                "timestamp": ""
-            },
-            "pinnedList": {
-                "content": "",
-                "username": "users[x]",
-                "timestamp": ""
-            }
-        }
-    },
-    "groupchats": {
-        "GCName": {
-            "users": {
-                "name1": "owner",
-                "name2": "member"
-            },
-            "GCName": "",
-            "GCImage": "",
+        "user": {
+            "user2": "",
             "messages": {
                 "normList": {
                     "content": "",
@@ -56,6 +33,28 @@
                     "content": "",
                     "username": "users[x]",
                     "timestamp": ""
+                }
+            }
+        },
+        "groupchats": {
+            "GCName": {
+                "users": {
+                    "name1": "owner",
+                    "name2": "member"
+                },
+                "GCName": "",
+                "GCImage": "",
+                "messages": {
+                    "normList": {
+                        "content": "",
+                        "username": "users[x]",
+                        "timestamp": ""
+                    },
+                    "pinnedList": {
+                        "content": "",
+                        "username": "users[x]",
+                        "timestamp": ""
+                    }
                 }
             }
         }
