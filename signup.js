@@ -68,6 +68,8 @@ signupbutton.onclick = function (event) {
             description: "Hello my name is " + username.value + "!",
             profilePicture: "https://i.pinimg.com/originals/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg?nii=t"
         });
+        localStorage.setItem('username', username.value);
+        localStorage.setItem('loginStatus', 'true');
     }
 
     username.value = "";

@@ -70,13 +70,10 @@ searchInput.addEventListener('input', () => {
                 const userFriendRef = firebase.database().ref(`users/${currentUser}/friends`);
 
                 userFriendRef.once('value').then(snapshot => {
-                    if (!snapshot.exists()) {
-                        return userFriendRef.set([friendUser]);
-                    } else {
+                    if (snapshot.exists()) {
                         return userFriendRef.push(friendUser);
                     }
                 }).then(() => {
-                    alert(`You are now friends with ${friendUser}!`);
                     addBtn.disabled = true;
                     addBtn.textContent = 'Friended';
                 }).catch(error => {

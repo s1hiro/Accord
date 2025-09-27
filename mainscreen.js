@@ -16,6 +16,9 @@ const allMessages = document.querySelector('#all-messages');
 const sendBtn = document.getElementById('send-btn');
 sendBtn.onclick = updateDB
 
+console.log(localStorage.getItem('username'));
+console.log(localStorage.getItem('loginStatus'));
+
 // sidebar toggler
 document.addEventListener('DOMContentLoaded', function () {
   const sidebarToggle = document.getElementById('sidebar-toggle');
