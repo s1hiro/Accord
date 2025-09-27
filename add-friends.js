@@ -22,12 +22,13 @@ const searchInput = document.getElementById('searchInput');
 const searchResults = document.getElementById('searchResults');
 
 searchInput.addEventListener('input', () => {
-    const searchTerm = searchInput.value.trim().toLowerCase();
+    const searchTerm = searchInput.value.trim()
     searchResults.innerHTML = '';
     if (searchTerm === '') { return; };
 
     const matches = allUsernames.filter(u => u.username.includes(searchTerm));
     matches.forEach(({ username, pfp }) => {
+        if (username === localStorage.getItem('username')) return; // skip self
         const userDiv = document.createElement('div');
         userDiv.className = 'user-result';
 
@@ -45,7 +46,16 @@ searchInput.addEventListener('input', () => {
 
         const addBtn = document.createElement('button');
         addBtn.className = 'add-btn';
-        addBtn.textContent = 'Add Friend';
+        let friendList = users[localStorage.getItem('username')]?.friends || {};
+
+        // Check if user is already friend
+        if (friendList.hasOwnProperty(username)) {
+            addBtn.disabled = true;
+            addBtn.textContent = 'Already Friends!';
+        } else {
+            addBtn.disabled = false;
+            addBtn.textContent = 'Add Friend';
+        }
         addBtn.onclick = () => {
             if (localStorage.getItem('loginStatus') !== 'true') {
                 alert("You must be logged in to add friends.");
@@ -61,19 +71,12 @@ searchInput.addEventListener('input', () => {
                 return;
             }
 
-            let friendList = users[currentUser]?.friends;
-            if (!Array.isArray(friendList)) {
-                friendList = [];
-            }
+            let friendList = users[currentUser]?.friends || {};
 
-            if (!friendList.includes(friendUser)) {
-                const userFriendRef = firebase.database().ref(`users/${currentUser}/friends`);
+            if (!friendList.hasOwnProperty(friendUser)) {
+                const userFriendRef = firebase.database().ref(`users/${currentUser}/friends/${friendUser}`);
 
-                userFriendRef.once('value').then(snapshot => {
-                    if (snapshot.exists()) {
-                        return userFriendRef.push(friendUser);
-                    }
-                }).then(() => {
+                userFriendRef.set(true).then(() => {
                     addBtn.disabled = true;
                     addBtn.textContent = 'Friended';
                 }).catch(error => {
@@ -82,10 +85,9 @@ searchInput.addEventListener('input', () => {
                 });
             } else {
                 addBtn.disabled = true;
-                addBtn.textContent = 'Friended';
+                addBtn.textContent = 'Already Friends!';
             }
         };
-
 
         userDiv.appendChild(pfpImg);
         userDiv.appendChild(at);
