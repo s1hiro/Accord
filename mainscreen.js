@@ -22,49 +22,47 @@ userFriendsref.once('value').then(snapshot => {
         <div class="status-indicator online"></div>
       </div>
       <span id="dm-${dm}" class="username">${dm}</span>`;
-
+      let combinedMessages = [];
       // Add click handler for this DM
       dmDiv.addEventListener('click', () => {
         const chatHeaderName = document.querySelector('.channel-name');
         if (chatHeaderName) chatHeaderName.textContent = dm;
 
         const currentUser = localStorage.getItem('username');
-        const userToFriendRef = dbDms.child(`${currentUser}/${dm}/messages/normList`);
-        const friendToUserRef = dbDms.child(`${dm}/${currentUser}/messages/normList`);
+
+        const userToFriendRef = dbDms.child(`${currentUser}/${dm}/messages/normList`).orderByChild('timestampNumeric');
+        const friendToUserRef = dbDms.child(`${dm}/${currentUser}/messages/normList`).orderByChild('timestampNumeric');
 
         allMessages.innerHTML = "";
+        combinedMessages = [];
 
-        // Load messages user -> friend
-        userToFriendRef.once('value').then(snapshotUser => {
-          // Load messages friend -> user
-          friendToUserRef.once('value').then(snapshotFriend => {
-            // Combine messages from both refs into one array
-            let combinedMessages = [];
+        userToFriendRef.off();
+        friendToUserRef.off();
 
-            snapshotUser.forEach(childSnapshot => {
-              combinedMessages.push({ key: childSnapshot.key, val: childSnapshot.val() });
-            });
+        function addAndRenderMessage(snapshot) {
+          const key = snapshot.key;
+          const val = snapshot.val();
 
-            snapshotFriend.forEach(childSnapshot => {
-              combinedMessages.push({ key: childSnapshot.key, val: childSnapshot.val() });
-            });
+          // Add new message if not already in combinedMessages (to avoid duplicates)
+          if (!combinedMessages.some(msg => msg.key === key)) {
+            combinedMessages.push({ key: key, val: val });
 
-            // Sort combined messages by timestamp string ascending
-            combinedMessages.sort((a, b) => {
-              if (a.val.timestamp < b.val.timestamp) return -1;
-              if (a.val.timestamp > b.val.timestamp) return 1;
-              return 0;
-            });
+            // Sort by numeric timestamp
+            combinedMessages.sort((a, b) => a.val.timestampNumeric - b.val.timestampNumeric);
 
-            // Render messages in order
+            // Clear and rerender all messages in order
+            allMessages.innerHTML = "";
             combinedMessages.forEach(msg => {
-              // Extract username from key (username_timestamp)
               const username = msg.key.split('_')[0];
-              messageLoader({ key: msg.key, val: () => msg.val }); // Adapt messageLoader if needed to accept object with key and val method
+              messageLoader({ key: msg.key, val: () => msg.val });
             });
-          });
-        });
+          }
+        }
+
+        userToFriendRef.on('child_added', addAndRenderMessage);
+        friendToUserRef.on('child_added', addAndRenderMessage);
       });
+
 
       dmSection.appendChild(dmDiv);
     });
@@ -99,6 +97,10 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+function padZero(num) {
+  return num.toString().padStart(2, '0');
+}
+
 // sidebar user info
 document.addEventListener('DOMContentLoaded', () => {
   const usernameElem = document.getElementById('sidebar-user');
@@ -127,7 +129,8 @@ function messageSender(event) {
 
   let data = {
     content: messageElem.value,
-    timestamp: `${timedata.getMonth() + 1}/${timedata.getDate()}/${timedata.getFullYear()} ${timedata.getHours()}:${timedata.getMinutes()}`
+    timestamp: `${padZero(timedata.getMonth() + 1)}/${padZero(timedata.getDate())}/${timedata.getFullYear()} ${padZero(timedata.getHours())}:${padZero(timedata.getMinutes())}`,
+    timestampNumeric: timedata.getTime()  // Numeric timestamp in milliseconds
   };
 
   const dmRef = dbDms.child(`${username}/${dm}/messages/normList`);
