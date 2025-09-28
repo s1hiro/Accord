@@ -44,7 +44,7 @@
             <circle cx="45.38" cy="46.92" r="11.94" />
             <line x1="45.98" y1="39.8" x2="45.98" y2="53.8" />
             <line x1="38.98" y1="46.8" x2="52.98" y2="46.8" />
-          </svg> 
+          </svg>
           Add Friends!
         </button>
       </div>
@@ -75,32 +75,17 @@
         <div class="section-header">
           <span class="section-title">ONLINE — 3</span>
         </div>
-        <div class="user-list">
-          <div class="user-item">
-            <div class="user-avatar">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User">
-              <div class="status-indicator online"></div>
-            </div>
-            <span class="username">User123</span>
-          </div>
-          <div class="user-item">
-            <div class="user-avatar">
-              <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User">
-              <div class="status-indicator online"></div>
-            </div>
-            <span class="username">ChatMaster</span>
-          </div>
+        <div id="online-dms" class="user-list">
         </div>
       </div>
 
       <div class="user-bar">
         <div class="user-bar-left">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User Avatar"
+          <img id="sidebar-pfp" src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User Avatar"
             class="user-bar-avatar">
-          <span class="user-bar-username">PlaceholderUser</span>
+          <span id="sidebar-user" class="user-bar-username">PlaceholderUser</span>
         </div>
-        <button class="settings-btn" onclick="window.location.href='settings.html'">
-          <!-- Gear/Settings SVG -->
+        <button class="settings-btn" onclick="window.location.href='settings.html'" width="30px" height="30px">
           <svg fill="#4f545c" width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
             data-name="Layer 1">
             <path

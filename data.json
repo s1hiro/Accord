@@ -22,17 +22,15 @@
     },
     "dms": {
         "user": {
-            "user2": "",
-            "messages": {
-                "normList": {
-                    "content": "",
-                    "username": "users[x]",
-                    "timestamp": ""
-                },
-                "pinnedList": {
-                    "content": "",
-                    "username": "users[x]",
-                    "timestamp": ""
+            "user2": {
+                "messages": {
+                    "normList": {
+                        "username": {
+                            "content": "",
+                            "username": "users[x]",
+                            "timestamp": ""
+                        }
+                    }
                 }
             }
         },

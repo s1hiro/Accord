@@ -80,7 +80,7 @@ body {
 }
 
 .channels-section, .users-section {
-  padding: 16px 8px;
+  padding: 8px 8px;
 }
 
 .section-header {
@@ -582,7 +582,7 @@ body {
 
 .add-friends-button-container {
   width: 90%;
-  margin: 8px auto 16px auto;
+  margin: 8px auto 2px auto;
   background-color: var(--accent-blue);
   border-radius: 8px;
   padding: 6px;
@@ -608,6 +608,41 @@ body {
 }
 
 button svg {
-  margin-right: 8px; /* Adjust px as needed */
   vertical-align: middle; /* optional, to align with text */
+}
+
+.discord-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid #23272a;
+}
+.discord-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #454547;
+}
+.discord-content { flex: 1; }
+.discord-top-row {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+.discord-username {
+  font-weight: 700;
+  color: #fff;
+  font-size: 1rem;
+}
+.discord-time {
+  font-size: .95rem;
+  color: #b9bbbe;
+}
+.discord-text {
+  color: #dcddde;
+  font-size: 1.05rem;
+  margin-top: 2px;
+  word-break: break-word;
 }

@@ -1,20 +1,60 @@
-const database = firebase.database().ref(); 
-const userFriends = firebase.database().ref(`users/${localStorage.getItem('username')}/friends`);
+const database = firebase.database().ref();
+const userFriendsref = firebase.database().ref(`users/${localStorage.getItem('username')}/friends`);
 const dbDms = firebase.database().ref('dms');
 const userDms = [];
-userFriends.once('value').then(snapshot => {
+let currDm = null;
+let currReference;
+
+userFriendsref.once('value').then(snapshot => {
   const friendsList = snapshot.val(); // This gets the friends data once loaded
   if (friendsList) {
     for (const friend in friendsList) {
       userDms.push(friend);
     }
+    const dmSection = document.getElementById('online-dms');
+
+    userDms.forEach(dm => {
+      const dmDiv = document.createElement('div');
+      dmDiv.className = 'user-item';
+      dmDiv.innerHTML = `
+      <div class="user-avatar">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png" alt="User">
+        <div class="status-indicator online"></div>
+      </div>
+      <span id="dm-${dm}" class="username">${dm}</span>`;
+
+      // Add click handler for this DM
+      dmDiv.addEventListener('click', () => {
+        // Update chat header
+        const chatHeaderName = document.querySelector('.channel-name');
+        if (chatHeaderName) {
+          chatHeaderName.textContent = dm;
+        }
+
+        currReference = dbDms.child(`${localStorage.getItem('username')}/${dm}/messages/normList`);
+
+        // Clear old messages
+        allMessages.innerHTML = "";
+
+        // Remove previous child_added listeners to avoid duplicates
+        currReference.off('child_added');
+
+        // Listen for all existing and new messages in real time
+        currReference.on('child_added', childSnapshot => {
+          messageLoader(childSnapshot);
+        });
+      });
+
+      dmSection.appendChild(dmDiv);
+    });
     // Now userDms contains the actual list of user's friends
     console.log('User friends loaded:', userDms);
   }
 });
+
 const allMessages = document.querySelector('#all-messages');
 const sendBtn = document.getElementById('send-btn');
-sendBtn.onclick = updateDB
+sendBtn.onclick = messageSender;
 
 console.log(localStorage.getItem('username'));
 console.log(localStorage.getItem('loginStatus'));
@@ -38,64 +78,100 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-function updateDB(event) {
+// sidebar user info
+document.addEventListener('DOMContentLoaded', () => {
+  const usernameElem = document.getElementById('sidebar-user');
+  const imgSrc = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
+  usernameElem.textContent = localStorage.getItem('username') || 'Guest';
+  const pfpElem = document.getElementById('sidebar-pfp');
+  pfpElem.src = imgSrc;
+});
 
+function messageSender(event) {
   event.preventDefault();
 
-  let timedata = new Date();
+  const timedata = new Date();
+  const username = localStorage.getItem('username');
+  const messageElem = document.getElementById('message');
+  const dm = document.querySelector('.channel-name').textContent.trim();
 
-  let data = {
-    USERNAME: usernameElem.value,
-    MESSAGE: messageElem.value,
-    DATE: `${timedata.getMonth() + 1}/${timedata.getDate()}/${timedata.getFullYear()}`,
-    TIME: `${timedata.getHours()}:${timedata.getMinutes()}}`,
+  if (!dm) {
+    alert('Please select a DM to send a message.');
+    return;
   }
 
-  userDms.push(data)
-  messageElem.value = "";
+  let timestampKey = `${timedata.getFullYear()}-${(timedata.getMonth() + 1).toString().padStart(2, '0')}-${timedata.getDate().toString().padStart(2, '0')}-${timedata.getHours().toString().padStart(2, '0')}${timedata.getMinutes().toString().padStart(2, '0') }${timedata.getSeconds().toString().padStart(2, '0')}`;
+
+  let customKey = `${username}_${timestampKey}`;
+
+  let data = {
+    content: messageElem.value,
+    username: username,
+    timestamp: `${timedata.getMonth() + 1}/${timedata.getDate()}/${timedata.getFullYear()} ${timedata.getHours()}:${timedata.getMinutes()}`
+  };
+
+  const dmRef = dbDms.child(`${username}/${dm}/messages/normList`);
+
+  dmRef.child(customKey).set(data)
+    .then(() => {
+      messageElem.value = "";
+      console.log('Message sent with key:', customKey);
+    })
+    .catch(error => {
+      console.error('Error sending message:', error);
+      alert('Failed to send message: ' + error.message);
+    });
 }
 
 
-//userDms.on('child_added', addMessageToBoard) 
+//userDms.on('child_added', messageLoader)
 
-function addMessageToBoard(rowData) {
+function messageLoader(rowData) {
   const data = rowData.val()
-  let singleMessage = makeSingleMessageHTML(data.USERNAME, data.MESSAGE, data.DATE, data.TIME);
+  const key = rowData.key; // This is the message key, e.g. "username_timestamp"
+
+  // Extract the username from the key by splitting at "_" if you used "username_timestamp"
+  const username = key.split('_')[0];
+  let singleMessage = makeSingleMessageHTML(username, data.content, data.timestamp);
   allMessages.append(singleMessage)
 }
 
-function makeSingleMessageHTML(usernameTxt, messageTxt, dateTxt, timeTxt) {
-  let parentDiv = document.createElement("div")
-  parentDiv.className = 'single-message'
+function makeSingleMessageHTML(usernameTxt, messageTxt, timestampTxt) {
+  let parentDiv = document.createElement("div");
+  parentDiv.className = 'discord-message';
 
-  let image = document.createElement("img");
-  image.className = "single-message-img";
-  image.src = imgSrc;
-  parentDiv.append(image);
+  let imgSrc = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
+  let avatar = document.createElement("img");
+  avatar.className = 'discord-avatar';
+  avatar.src = imgSrc;
 
-  let usernameP = document.createElement("p");
-  usernameP.className = 'single-message-username';
-  usernameP.innerHTML = usernameTxt + ':';
-  parentDiv.append(usernameP);
+  let contentDiv = document.createElement("div");
+  contentDiv.className = 'discord-content';
 
-  let messageP = document.createElement("p");
-  messageP.innerHTML = messageTxt;
-  parentDiv.append(messageP);
+  let topRow = document.createElement("div");
+  topRow.className = 'discord-top-row';
+  let userSpan = document.createElement("span");
+  userSpan.className = 'discord-username';
+  userSpan.textContent = usernameTxt;
+  let timeSpan = document.createElement("span");
+  timeSpan.className = 'discord-time';
+  timeSpan.textContent = `${timestampTxt}`;
+  topRow.appendChild(userSpan);
+  topRow.appendChild(timeSpan);
 
-  let dateP = document.createElement('p');
-  dateP.className = "single-message-date";
-  dateP.innerHTML = dateTxt;
-  parentDiv.append(dateP);
+  let msgDiv = document.createElement("div");
+  msgDiv.className = 'discord-text';
+  msgDiv.textContent = messageTxt;
 
-  let timeP = document.createElement('p');
-  timeP.className = "single-message-time";
-  timeP.innerHTML = timeTxt;
-  parentDiv.append(timeP);
-
+  contentDiv.appendChild(topRow);
+  contentDiv.appendChild(msgDiv);
+  parentDiv.appendChild(avatar);
+  parentDiv.appendChild(contentDiv);
 
   return parentDiv;
 }
 
+//add friends redirect
 document.addEventListener('DOMContentLoaded', () => {
   const addFriendsBtn = document.getElementById('add-friends-btn');
   addFriendsBtn.addEventListener('click', () => {
