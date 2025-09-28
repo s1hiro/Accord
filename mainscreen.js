@@ -25,23 +25,44 @@ userFriendsref.once('value').then(snapshot => {
 
       // Add click handler for this DM
       dmDiv.addEventListener('click', () => {
-        // Update chat header
         const chatHeaderName = document.querySelector('.channel-name');
-        if (chatHeaderName) {
-          chatHeaderName.textContent = dm;
-        }
+        if (chatHeaderName) chatHeaderName.textContent = dm;
 
-        currReference = dbDms.child(`${localStorage.getItem('username')}/${dm}/messages/normList`);
+        const currentUser = localStorage.getItem('username');
+        const userToFriendRef = dbDms.child(`${currentUser}/${dm}/messages/normList`);
+        const friendToUserRef = dbDms.child(`${dm}/${currentUser}/messages/normList`);
 
-        // Clear old messages
         allMessages.innerHTML = "";
 
-        // Remove previous child_added listeners to avoid duplicates
-        currReference.off('child_added');
+        // Load messages user -> friend
+        userToFriendRef.once('value').then(snapshotUser => {
+          // Load messages friend -> user
+          friendToUserRef.once('value').then(snapshotFriend => {
+            // Combine messages from both refs into one array
+            let combinedMessages = [];
 
-        // Listen for all existing and new messages in real time
-        currReference.on('child_added', childSnapshot => {
-          messageLoader(childSnapshot);
+            snapshotUser.forEach(childSnapshot => {
+              combinedMessages.push({ key: childSnapshot.key, val: childSnapshot.val() });
+            });
+
+            snapshotFriend.forEach(childSnapshot => {
+              combinedMessages.push({ key: childSnapshot.key, val: childSnapshot.val() });
+            });
+
+            // Sort combined messages by timestamp string ascending
+            combinedMessages.sort((a, b) => {
+              if (a.val.timestamp < b.val.timestamp) return -1;
+              if (a.val.timestamp > b.val.timestamp) return 1;
+              return 0;
+            });
+
+            // Render messages in order
+            combinedMessages.forEach(msg => {
+              // Extract username from key (username_timestamp)
+              const username = msg.key.split('_')[0];
+              messageLoader({ key: msg.key, val: () => msg.val }); // Adapt messageLoader if needed to accept object with key and val method
+            });
+          });
         });
       });
 
@@ -100,13 +121,12 @@ function messageSender(event) {
     return;
   }
 
-  let timestampKey = `${timedata.getFullYear()}-${(timedata.getMonth() + 1).toString().padStart(2, '0')}-${timedata.getDate().toString().padStart(2, '0')}-${timedata.getHours().toString().padStart(2, '0')}${timedata.getMinutes().toString().padStart(2, '0') }${timedata.getSeconds().toString().padStart(2, '0')}`;
+  let timestampKey = `${timedata.getFullYear()}-${(timedata.getMonth() + 1).toString().padStart(2, '0')}-${timedata.getDate().toString().padStart(2, '0')}-${timedata.getHours().toString().padStart(2, '0')}${timedata.getMinutes().toString().padStart(2, '0')}${timedata.getSeconds().toString().padStart(2, '0')}`;
 
   let customKey = `${username}_${timestampKey}`;
 
   let data = {
     content: messageElem.value,
-    username: username,
     timestamp: `${timedata.getMonth() + 1}/${timedata.getDate()}/${timedata.getFullYear()} ${timedata.getHours()}:${timedata.getMinutes()}`
   };
 
