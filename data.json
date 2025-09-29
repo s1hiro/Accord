@@ -22,7 +22,7 @@
     },
     "dms": {
         "user": {
-            "user2": {
+            "friend": {
                 "messages": {
                     "normList": {
                         "username": {
@@ -33,26 +33,26 @@
                     }
                 }
             }
-        },
-        "groupchats": {
-            "GCName": {
-                "users": {
-                    "name1": "owner",
-                    "name2": "member"
+        }
+    },
+    "groupchats": {
+        "GCName": {
+            "users": {
+                "name1": "owner",
+                "name2": "member"
+            },
+            "GCName": "",
+            "GCImage": "",
+            "messages": {
+                "normList": {
+                    "content": "",
+                    "username": "users[x]",
+                    "timestamp": ""
                 },
-                "GCName": "",
-                "GCImage": "",
-                "messages": {
-                    "normList": {
-                        "content": "",
-                        "username": "users[x]",
-                        "timestamp": ""
-                    },
-                    "pinnedList": {
-                        "content": "",
-                        "username": "users[x]",
-                        "timestamp": ""
-                    }
+                "pinnedList": {
+                    "content": "",
+                    "username": "users[x]",
+                    "timestamp": ""
                 }
             }
         }

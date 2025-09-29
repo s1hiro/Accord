@@ -71,6 +71,14 @@ userFriendsref.once('value').then(snapshot => {
   }
 });
 
+const logout = document.querySelector('.back-btn');
+
+logout.onclick = function () {
+  localStorage.setItem('loginStatus', 'false');
+  localStorage.removeItem('username');
+  window.location.href = 'index.html';
+};
+
 const allMessages = document.querySelector('#all-messages');
 const sendBtn = document.getElementById('send-btn');
 sendBtn.onclick = messageSender;
@@ -105,7 +113,7 @@ function padZero(num) {
 document.addEventListener('DOMContentLoaded', () => {
   const usernameElem = document.getElementById('sidebar-user');
   const imgSrc = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/2048px-Default_pfp.svg.png"
-  usernameElem.textContent = localStorage.getItem('username') || 'Guest';
+  usernameElem.textContent = localStorage.getItem('username') || 'Login!  ';
   const pfpElem = document.getElementById('sidebar-pfp');
   pfpElem.src = imgSrc;
 });
@@ -145,9 +153,6 @@ function messageSender(event) {
       alert('Failed to send message: ' + error.message);
     });
 }
-
-
-//userDms.on('child_added', messageLoader)
 
 function messageLoader(rowData) {
   const data = rowData.val()
@@ -198,7 +203,12 @@ function makeSingleMessageHTML(usernameTxt, messageTxt, timestampTxt) {
 document.addEventListener('DOMContentLoaded', () => {
   const addFriendsBtn = document.getElementById('add-friends-btn');
   addFriendsBtn.addEventListener('click', () => {
-    localStorage.setItem('lastPage', 'mainscreen.html');
-    window.location.href = 'add-friends.html';
+    if (localStorage.getItem('loginStatus') === 'true') {
+      localStorage.setItem('lastPage', 'mainscreen.html');
+      window.location.href = 'add-friends.html';
+    } else {
+      alert('You must be logged in to add friends.');
+      window.location.href = 'login.html';
+    }
   });
 });

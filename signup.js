@@ -58,8 +58,6 @@ signupbutton.onclick = function (event) {
         let timedata = new Date();
         newEntry.set({
             password: password.value,
-            friends: [],
-            groupchats: [],
             datejoined: {
                 month: timedata.getMonth() + 1,
                 day: timedata.getDate(),
@@ -70,6 +68,7 @@ signupbutton.onclick = function (event) {
         });
         localStorage.setItem('username', username.value);
         localStorage.setItem('loginStatus', 'true');
+        window.location.href = "mainscreen.html";
     }
 
     username.value = "";
