@@ -46,6 +46,11 @@ signupbutton.onclick = function (event) {
                     alert("Username already exists, please choose another one.");
                     break;
                 }
+                if (user === "admin" || user === "Admin" || user === "ADMIN") {
+                    canCreate = false;
+                    alert("admin is reserved. Please choose another username.");
+                    break;
+                }
             }
         } else {
             canCreate = false;

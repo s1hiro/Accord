@@ -3,7 +3,8 @@ const userFriendsref = firebase.database().ref(`users/${localStorage.getItem('us
 const dbDms = firebase.database().ref('dms');
 const userDms = [];
 let currDm = null;
-let currReference;
+let currReference;  
+const userInput = document.getElementById('message');
 
 userFriendsref.once('value').then(snapshot => {
   const friendsList = snapshot.val(); // This gets the friends data once loaded
@@ -26,7 +27,10 @@ userFriendsref.once('value').then(snapshot => {
       // Add click handler for this DM
       dmDiv.addEventListener('click', () => {
         const chatHeaderName = document.querySelector('.channel-name');
-        if (chatHeaderName) chatHeaderName.textContent = dm;
+        if (chatHeaderName) {
+          chatHeaderName.textContent = dm;
+          userInput.placeholder = "Message " + dm;
+        }
 
         const currentUser = localStorage.getItem('username');
 
@@ -56,6 +60,7 @@ userFriendsref.once('value').then(snapshot => {
               const username = msg.key.split('_')[0];
               messageLoader({ key: msg.key, val: () => msg.val });
             });
+            allMessages.scrollTop = allMessages.scrollHeight;
           }
         }
 
@@ -66,8 +71,6 @@ userFriendsref.once('value').then(snapshot => {
 
       dmSection.appendChild(dmDiv);
     });
-    // Now userDms contains the actual list of user's friends
-    console.log('User friends loaded:', userDms);
   }
 });
 
@@ -125,6 +128,16 @@ function messageSender(event) {
   const username = localStorage.getItem('username');
   const messageElem = document.getElementById('message');
   const dm = document.querySelector('.channel-name').textContent.trim();
+
+  if(!messageElem.value) {
+    userInput.placeholder = "Please write something!";
+    userInput.focus();
+    setTimeout(() => {
+      userInput.placeholder = "Message " + dm;
+      userInput.unfocus();
+    }, 5000);
+    return;
+  }
 
   if (!dm) {
     alert('Please select a DM to send a message.');

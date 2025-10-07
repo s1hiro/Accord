@@ -174,8 +174,8 @@ body {
   padding: 0 16px;
   border-bottom: 1px solid var(--border);
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: flex-start;
   background-color: var(--bg-primary);
 }
 
@@ -615,7 +615,10 @@ button svg {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 10px 0;
+  padding: 5px;
+  margin: 5px;
+  background-color: #272a30;
+  border-radius: 10px;
   border-bottom: 1px solid #23272a;
 }
 .discord-avatar {
@@ -630,6 +633,7 @@ button svg {
   display: flex;
   gap: 8px;
   align-items: baseline;
+  padding-left: 10px;
 }
 .discord-username {
   font-weight: 700;
@@ -645,4 +649,6 @@ button svg {
   font-size: 1.05rem;
   margin-top: 2px;
   word-break: break-word;
+  padding-left: 10px;
+  padding-bottom: 5px;
 }

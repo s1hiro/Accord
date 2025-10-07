@@ -1,0 +1,101 @@
+/* In admin-panel.css or your relevant stylesheet */
+
+#admin-messages-list {
+  overflow: scroll;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;          /* Full viewport height */
+  overflow: hidden;       /* Hide overflow except user list */
+}
+
+.users-section {
+  flex: 1 1 auto;         /* Allow it to grow and fill available height */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;       /* Prevent overflow on container */
+}
+
+.user-list {
+  flex: 1 1 auto;         /* Fill vertically */
+  overflow-y: auto;       /* Scroll only on vertical overflow */
+  padding-right: 4px;     /* Account for scrollbar space */
+}
+
+/* Optional: prevent horizontal scroll */
+.user-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.user-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.user-list::-webkit-scrollbar-thumb {
+  background-color: var(--bg-accent);
+  border-radius: 4px;
+}
+
+.discord-message,
+.user-item {
+  display: flex;
+  align-items: center; /* vertically center children */
+  justify-content: space-between;
+}
+
+/* Flex container to avoid shifting right */
+.user-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* keeps delete button right aligned */
+  padding: 6px 8px;
+  cursor: pointer;
+  user-select: none;
+  max-width: 100%;
+}
+
+/* Ensure usernames overflow with ellipsis */
+.username {
+  max-width: calc(100% - 36px); /* Leave room for delete button */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Prevent main content shifting */
+.app-container {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Main content should fill the remaining space */
+.main-content {
+  flex-grow: 1;
+  overflow: auto; /* Enable scroll if content grows */
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.delete-icon {
+  all: unset;
+  width: 32px;    /* increase width */
+  height: 32px;   /* increase height */
+  flex-shrink: 0;
+  align-items: center;
+  background-color: transparent; /* light red background */
+  transition: all 0.3s ease-in-out;
+}
+
+.delete-icon svg {
+  display: block;
+}
+
+.delete-icon:hover {
+  background-color: #9e26267a; /* light red background on hover */
+  cursor: pointer;
+  border-radius: 4px;
+}

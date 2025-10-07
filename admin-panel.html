@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Accord Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="mainscreen.css" />
+  <link rel="stylesheet" href="global.css" />
+  <link rel="stylesheet" href="admin-panel.css" />
+  <link rel="icon" href="accord.png" type="image/x-icon">
+  <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script defer type="module" src="init-firebase.js"></script>
+  <script defer src="admin-panel.js"></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="server-header">
+        <h2>Accord Admin</h2>
+        <button class="back-btn" id="logout-btn">← Logout</button>
+      </div>
+      <div class="users-section">
+        <div class="section-header">
+          <span class="section-title">ALL USERS</span>
+        </div>
+        <div id="user-list" class="user-list"></div>
+      </div>
+    </div>
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="chat-header">
+        <span class="channel-icon">@</span>
+        <span class="channel-name" id="selected-user"></span>
+      </div>
+      <div class="messages-container">
+        <div id="admin-dm-list"></div>
+        <div id="admin-messages-list"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
