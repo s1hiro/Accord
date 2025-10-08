@@ -1,7 +1,10 @@
 /* In admin-panel.css or your relevant stylesheet */
 
 #admin-messages-list {
-  overflow: scroll;
+  flex-grow: 1;       /* take available space */
+  overflow-y: auto;   /* only scroll when needed */
+  overflow-x: hidden;
+  background: transparent; /* or your page background */
 }
 
 .sidebar {
@@ -62,6 +65,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 20px;
 }
 
 /* Prevent main content shifting */

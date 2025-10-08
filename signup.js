@@ -21,41 +21,32 @@ signupbutton.onclick = function (event) {
     event.preventDefault(); // Prevent the default form submission
 
     let canCreate = true;
-    for (let i = 0; i < username.value.length; i++) {
-        if (username.value[i] === " ") {
-            canCreate = false;
-            alert("Username cannot contain spaces.");
-            break;
-        }
-    }
-
-    for (let i = 0; i < password.value.length; i++) {
-        if (password.value[i] === " ") {
-            canCreate = false;
-            alert("Password cannot contain spaces.");
-            break;
-        }
+    if (/\s/.test(username.value) || /\s/.test(password.value)) {
+    canCreate = false;
+    alert("Username and password cannot contain spaces.");
     }
 
 
     if (canCreate) {
         if (username.value !== "" && password.value !== "") {
+        // Check reserved name first
+        if (["admin", "Admin", "ADMIN"].includes(username.value)) {
+            canCreate = false;
+            alert("admin is reserved. Please choose another username.");
+        } else {
+            // Then check if username already exists
             for (let user in users) {
                 if (user === username.value) {
                     canCreate = false;
                     alert("Username already exists, please choose another one.");
                     break;
                 }
-                if (user === "admin" || user === "Admin" || user === "ADMIN") {
-                    canCreate = false;
-                    alert("admin is reserved. Please choose another username.");
-                    break;
-                }
             }
-        } else {
-            canCreate = false;
-            alert("Please fill out both fields.");
         }
+    } else {
+        canCreate = false;
+        alert("Please fill out both fields.");
+    }
     }
 
     if (canCreate) {
