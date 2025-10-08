@@ -1,3 +1,7 @@
+if (localStorage.getItem("loginStatus") !== "true" || localStorage.getItem("username") !== "admin") {
+  window.location.href = "index.html";
+}
+
 const db = firebase.database().ref();
 const userListElem = document.getElementById("user-list");
 const adminDmList = document.getElementById("admin-dm-list");

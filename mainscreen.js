@@ -1,9 +1,13 @@
+if (localStorage.getItem("loginStatus") !== "true" || localStorage.getItem("username") !== "admin") {
+  window.location.href = "index.html";
+}
+
 const database = firebase.database().ref();
 const userFriendsref = firebase.database().ref(`users/${localStorage.getItem('username')}/friends`);
 const dbDms = firebase.database().ref('dms');
 const userDms = [];
 let currDm = null;
-let currReference;  
+let currReference;
 const userInput = document.getElementById('message');
 
 userFriendsref.once('value').then(snapshot => {
@@ -129,7 +133,7 @@ function messageSender(event) {
   const messageElem = document.getElementById('message');
   const dm = document.querySelector('.channel-name').textContent.trim();
 
-  if(!messageElem.value) {
+  if (!messageElem.value) {
     userInput.placeholder = "Please write something!";
     userInput.focus();
     setTimeout(() => {

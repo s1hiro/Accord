@@ -1,3 +1,7 @@
+if (localStorage.getItem("loginStatus") !== "true" || localStorage.getItem("username") !== "admin") {
+    window.location.href = "index.html";
+}
+
 let users;
 const allUsernames = [];
 

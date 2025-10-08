@@ -69,6 +69,102 @@ button:hover {
     margin: 20px;
 }
 
-#username, #password {
-  color: azure;
+#username,
+#password {
+    color: azure;
+}
+
+/* Center the page content */
+.page-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #202225;
+    font-family: Arial, sans-serif;
+    color: #fff;
+    margin: 0;
+}
+
+/* Main form box */
+.form-box {
+    background-color: #2f3136;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    width: 540px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    position: relative;
+}
+
+/* Header label (@admin) */
+.form-title {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #7289da;
+}
+
+/* Section header */
+.form-header {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* Question text */
+.form-question {
+    font-size: 1.5rem;
+    color: #ccc;
+    margin-bottom: 1rem;
+    margin-top: 0;
+}
+
+/* Form fields */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.input-field {
+    display: inline-block;
+    align-self: center; /* stop flexbox from stretching the input */
+    width: fit-content; /* allow it to size to its content */
+    min-width: 150px;   /* prevent being too small */
+    max-width: 90%;     /* prevent overflowing the form */
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #40444b;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+#secQuestion, #secAnswer {
+    width: 500px;
+}
+
+/* Button */
+.action-button {
+    width: 22%;
+    height: 80px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #5865f2;
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+    font-size: 1.5rem;
+}
+
+.action-button:hover {
+    background-color: #4752c4;
 }
