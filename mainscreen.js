@@ -1,4 +1,4 @@
-if (localStorage.getItem("loginStatus") !== "true" || localStorage.getItem("username") !== "admin") {
+if (localStorage.getItem("loginStatus") !== "true") {
   window.location.href = "index.html";
 }
 
