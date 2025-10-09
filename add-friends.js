@@ -79,7 +79,6 @@ searchInput.addEventListener('input', () => {
 
             if (!friendList.hasOwnProperty(friendUser)) {
                 const userFriendRef = firebase.database().ref(`users/${currentUser}/friends/${friendUser}`);
-
                 userFriendRef.set(true).then(() => {
                     addBtn.disabled = true;
                     addBtn.textContent = 'Friended';
